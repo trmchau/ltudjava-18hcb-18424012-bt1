@@ -5,13 +5,13 @@
  */
 // Tham khảo
 // https://dzone.com/articles/read-utf-8-file-java
+//Đăng nhập / Đăng xuất
+//Đổi mặt khẩu
 package GiaoVu_SinhVien;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 
@@ -24,10 +24,15 @@ public class GiaoVu {
     public static void main(String []args){
         System.out.println("Hello Giáo Vụ");
         System.out.print("Nhập đường dẫn file input: ");
-//        String file = "../Data/17HCB_.csv";
+//        String file = "../Data/17HCB.csv";
         Scanner in = new Scanner(System.in);
         String file = in.nextLine();
         ReadFileCSV(file);
+    }
+    public static void StringFormat(String []arr){
+        for(int i = 0; i < arr.length; i++)
+            arr[i] = arr[i].trim();
+        System.out.printf("%s \t %-8s %-18s %-10s %-10s\n", arr[0], arr[1], arr[2], arr[3], arr[4]);
     }
     public static void ReadFileCSV (String file){
         try {
@@ -44,11 +49,17 @@ public class GiaoVu {
             String line = null;
             while((line = br.readLine())!= null){
                 String Str = new String(line.getBytes(), code);
-                System.out.println(Str);
+                String []arrItem = Str.split(",");
+//                for(String item: arrItem )
+//                {
+//                    System.out.print(item + "\t");
+//                }
+                StringFormat(arrItem);
+//                System.out.println();
+                
             }
         }catch (Exception e) {
             System.out.println(e);
         }
-    
-}
+    }
 }
