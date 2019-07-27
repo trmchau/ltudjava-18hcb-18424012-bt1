@@ -6,6 +6,7 @@
  */
 package GiaoVu;
 
+import static GiaoVu_SinhVien.XuLyData.XuLyPathImportFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,8 +20,13 @@ import java.util.logging.Logger;
  * @author Win10
  */
 public class Import_TKB {
-    public static void copyFileDSLop(){
-        Path source = Paths.get("F:\\HK\\III\\Standard\\My Homework\\Java\\Bài Tập\\Data\\TKB\\18HCB.csv");
+    public static void copyFileTKB(){
+        String path = XuLyPathImportFile();
+        if(!path.endsWith(".csv")){
+            System.out.println("Import không thành công");
+            return;
+        }
+        Path source = Paths.get(path);
 //        System.out.println(source);
         Path f = source.getFileName();
 //        System.out.println(f);

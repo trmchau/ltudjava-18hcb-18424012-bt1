@@ -5,13 +5,12 @@
  */
 package GiaoVu;
 
-import java.io.File;
+import static GiaoVu_SinhVien.XuLyData.XuLyPathImportFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,9 +19,14 @@ import java.util.logging.Logger;
  * @author Win10
  */
 public class ImportBangDiem {
-    public static void copyFileDSLop(){
-        Path source = Paths.get("F:\\HK\\III\\Standard\\My Homework\\Java\\Bài Tập\\Data\\Diem\\18HCB.csv");
-//        System.out.println(source);
+    public static void copyFileBangDiem(){
+        String path = XuLyPathImportFile();
+        if(!path.endsWith(".csv")){
+            System.out.println("Import không thành công");
+            return;
+        }
+        Path source = Paths.get(path);
+
         Path f = source.getFileName();
 //        System.out.println(f);
         Path des = Paths.get(System.getProperty("user.dir"));

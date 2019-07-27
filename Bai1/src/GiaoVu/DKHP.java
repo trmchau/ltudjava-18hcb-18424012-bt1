@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author Win10
  */
 public class DKHP {
-    public static void copyFileDSLop(){
+    public static void copyFileDKHP(){
         Path source = Paths.get("F:\\HK\\III\\Standard\\My Homework\\Java\\Bài Tập\\Data\\18HCB–CTT001.csv");
 //        System.out.println(source);
         Path f = source.getFileName();

@@ -5,6 +5,7 @@
  */
 package GiaoVu;
 
+import static GiaoVu_SinhVien.XuLyData.FormatDSLop;
 import static GiaoVu_SinhVien.XuLyData.ReadFileCSV;
 import java.io.File;
 import java.nio.file.Path;
@@ -18,7 +19,7 @@ import java.util.Scanner;
  * @author Win10
  */
 public class XemDSLop {
-    public static void XemDsLop(){
+    public static void GiaoVuXemDsLop(){
         Path des = Paths.get(System.getProperty("user.dir"));
 //        System.out.println(des);
         des = Paths.get(des.getParent() + "/Data/Lop/");
@@ -42,19 +43,22 @@ public class XemDSLop {
         String path = null;
         if(listFile.size() > 0){
             System.out.print("Chọn số STT của tên Lớp cần xem: ");
+            int chon;
             while(true){
                 Scanner sc = new Scanner(System.in);
-                int chon = sc.nextInt();
+                try {
+                    chon = sc.nextInt();
+                } catch (Exception e) {
+                    System.out.println("Bạn nhập không phải số --> " + e);
+                    continue;
+                }
                 chon = chon - 1;
-                if(chon < listFile.size() && chon > 0){
+                if(chon < listFile.size() && chon >= 0){
                     path = listFile.get(chon);
                     break;
                 }
             }
-            Map<String, String> map = (Map<String, String>)ReadFileCSV(path);
-            map.keySet().forEach((key) -> {
-                System.out.println(key + "\t" + map.get(key));
-            });       
+            FormatDSLop(path);
         }
         
     }

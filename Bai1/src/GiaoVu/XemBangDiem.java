@@ -9,58 +9,27 @@
 //Cho biết phần trăm đậu rớt
 package GiaoVu;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
+import static GiaoVu_SinhVien.XuLyData.ReadFileCSV;
+import static GiaoVu_SinhVien.XuLyData.SelectFile_DanhSach;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  *
  * @author Win10
  */
 public class XemBangDiem {
-    public static void GiaoVuXemDiem(){
-        String path = "F:\\HK\\III\\Standard\\My Homework\\Java\\ltudjava-18hcb-18424012-bt1\\Data\\Lop\\User_pass.csv";
-        Map<String, String> map = ReadFileCSV(path);
+    public static void GiaoVuXemBangDiem(){
+        Path des = Paths.get(System.getProperty("user.dir"));
+//        System.out.println(des);
+        des = Paths.get(des.getParent() + "/Data/Diem/");
+//        System.out.println(des);
+        String path = SelectFile_DanhSach(des);
+        Map<String, String> map = (Map<String, String>)ReadFileCSV(path);
         map.keySet().forEach((key) -> {
-                System.out.println(key + "\t" + map.get(key));
-        });  
-    }
-    public static Map<String, String> ReadFileCSV(String file){
-        try {
-            File f = new File(file);
-            FileReader fr = new FileReader(f);
-//            String code = fr.getEncoding();
-            Map<String, String> map;
-            try (BufferedReader br = new BufferedReader(fr)) {
-                String line;
-                //Lấy ra dòng đầu tiên trong file làm tiêu đề cột
-                String title = br.readLine();
-                System.out.println(title);
-                HashMap<String, String> list = new HashMap<>();
-                while((line = br.readLine())!= null){
-                    String []arrItem = line.split(",");
-                    StringBuilder value = new StringBuilder("");
-                    for(int i = 2; i < arrItem.length; i++){
-                        value.append(arrItem[i]);
-                        
-                    }
-//                    System.out.print(arrItem[1]);
-//                    System.out.print(value);
-                    list.put(arrItem[1], value.toString());
-//                    System.out.println();
-                    
-                }   map = new TreeMap<>(list);
-            }
-            return map;
-        }catch (IOException e) {
-            
-            System.out.println(e);
-        }
-        
-        return null;
+            System.out.println(key + "\t" + map.get(key));
+        });       
     }
 }
