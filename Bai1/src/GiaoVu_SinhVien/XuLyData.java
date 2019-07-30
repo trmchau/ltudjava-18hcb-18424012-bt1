@@ -37,14 +37,14 @@ public class XuLyData {
     public static void FormatDSLop(String file){
         Map<String, String> map = (Map<String, String>)ReadFileCSV(file);
         String title = map.get("title");
-        System.out.println(title);
         map.remove("title");
-        for(Map.Entry<String, String> entry: map.entrySet())
-        {
 //            [﻿STT , MSSV , Họ tên , Giới tính , CMND]
-            System.out.println(entry.getValue());
-//            System.out.printf("%4s %-10s %-15s %12s %-12s");
-//            System.out.println();
+        String []arrItem = title.split(",");
+        System.out.printf("%4s %-10s %-15s %8s %-8s \n",arrItem[0], arrItem[1],arrItem[2],arrItem[3],arrItem[4]);
+        for(String key: map.keySet())
+        {
+            String [] valIem = map.get(key).split(",");
+            System.out.printf("%-4s %-10s %-16s %8s %-8s \n",valIem[0], valIem[1],valIem[2],valIem[3],valIem[4]);
         }
     }
     public static Map<String, String> ReadFileCSV(String file){
@@ -148,7 +148,7 @@ public class XuLyData {
     public static String XuLyPathImportFile(){
         String path = null;
         String s;
-        System.out.println("Nhập đường dẫn đến file chứa file cần import: ");
+        System.out.println("Nhập đường dẫn đến Thư Mục chứa file cần import: ");
         Scanner sc = new Scanner(System.in);
         s = sc.nextLine();
         if(s.isEmpty())

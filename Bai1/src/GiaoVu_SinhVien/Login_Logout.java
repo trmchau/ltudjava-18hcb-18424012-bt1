@@ -267,7 +267,7 @@ public class Login_Logout {
     public static void SuaDiemThi(){
         System.out.println("Chức năng Sửa Điểm Thi");
         GiaoVuSuaDiem();
-        System.out.println(user + " Đã Hoàn Thành Sửa Điểm");
+        System.out.println(user + " Đã Hoàn Thành Chức Năng Sửa Điểm");
     }
  
 }

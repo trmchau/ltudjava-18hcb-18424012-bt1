@@ -48,19 +48,35 @@ public class XemTKB {
                 Scanner sc = new Scanner(System.in);
                 try {
                     chon = sc.nextInt();
+                    chon = chon - 1;
                 } catch (Exception e) {
                     System.out.println("Bạn nhập không phải số --> " + e);
                     continue;
                 }
-                if(chon < listFile.size() && chon > 0){
+                if(chon < listFile.size() && chon >= 0){
                     path = listFile.get(chon);
                     break;
                 }
+                else
+                    System.out.print("Nhập số có trong Danh Sách: ");
             }
             Map<String, String> map = (Map<String, String>)ReadFileCSV(path);
+            String title = map.get("title");
+            map.remove("title");
+//            ﻿STT ,Mã môn ,Tên môn ,Phòng học
+            String []arrItem = title.split(",");
+            System.out.printf("%4s %-10s %-27s %8s",arrItem[0], arrItem[1],arrItem[2],arrItem[3]);
+            System.out.println();
             map.keySet().forEach((key) -> {
-                System.out.println(key + "\t" + map.get(key));
-            });       
+                String []valItem = map.get(key).split(",");
+
+                System.out.printf("%-4s %-10s %-30s %-8s \n",valItem[0], valItem[1],valItem[2],valItem[3]);
+            }); 
+//            System.out.println(title);
+//            
+//            map.keySet().forEach((key) -> {
+//                System.out.println(map.get(key));
+//            });       
         }
         
     }

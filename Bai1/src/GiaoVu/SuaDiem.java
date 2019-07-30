@@ -6,12 +6,19 @@
 //Sửa điểm 1 Sinh Viên
 package GiaoVu;
 
+import static GiaoVu_SinhVien.XuLyData.HashMapToFile;
+import static GiaoVu_SinhVien.XuLyData.ReadFileCSV;
+import static GiaoVu_SinhVien.XuLyData.SelectFile_DanhSach;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 /**
@@ -19,45 +26,42 @@ import java.util.TreeMap;
  * @author Win10
  */
 public class SuaDiem {
+    protected static String MSSV;
     public static void GiaoVuSuaDiem(){
-        String path = "F:\\HK\\III\\Standard\\My Homework\\Java\\ltudjava-18hcb-18424012-bt1\\Data\\Lop\\User_pass.csv";
-        Map<String, String> map = ReadFileCSV(path);
-        map.keySet().forEach((key) -> {
-                System.out.println(key + "\t" + map.get(key));
-        });  
-    }
-    public static Map<String, String> ReadFileCSV(String file){
-        try {
-            File f = new File(file);
-            FileReader fr = new FileReader(f);
-//            String code = fr.getEncoding();
-            Map<String, String> map;
-            try (BufferedReader br = new BufferedReader(fr)) {
-                String line;
-                //Lấy ra dòng đầu tiên trong file làm tiêu đề cột
-                String title = br.readLine();
-                System.out.println(title);
-                HashMap<String, String> list = new HashMap<>();
-                while((line = br.readLine())!= null){
-                    String []arrItem = line.split(",");
-                    StringBuilder value = new StringBuilder("");
-                    for(int i = 2; i < arrItem.length; i++){
-                        value.append(arrItem[i]);
-                        
-                    }
-//                    System.out.print(arrItem[1]);
-//                    System.out.print(value);
-                    list.put(arrItem[1], value.toString());
-//                    System.out.println();
-                    
-                }   map = new TreeMap<>(list);
-            }
-            return map;
-        }catch (IOException e) {
-            
-            System.out.println(e);
-        }
+        System.out.print("Nhập MSSV cần sửa Điểm: ");
+        Scanner sc = new Scanner(System.in);
+        MSSV = sc.nextLine();
         
-        return null;
+        ArrayList <String> listSV_MH = new ArrayList<>();
+        Path des = Paths.get(System.getProperty("user.dir"));
+        String file = des.getParent().toString() + "\\Data\\Diem\\";
+        File dir = new File(file);
+        File[] files = dir.listFiles();
+        int stt = 0;
+        
+//        Dùng ArrayList lưu Path các file trong thư mục
+        ArrayList<String> listFile = new ArrayList<>();
+        for(File f: files){
+//            Lấy các file kết thúc với phần mở rộng .csv
+            if(f.toString().endsWith(".csv")){
+                Map<String, String> map = ReadFileCSV(f.toString());
+                if(map.containsKey(MSSV)){
+                    listSV_MH.add(f.toString());
+                }   
+                listFile.add(stt, f.toString());
+                stt++;
+//                Tách phần tên và phần mở rộng (ko cần thiết, làm thêm cho nhớ
+                String []name = f.getName().split("\\.");
+                System.out.printf("%d. %s", stt, name[0]);
+                //System.out.printf("%d. %s", stt, f);
+                System.out.println();
+            }
+        }
+        if(listSV_MH.isEmpty())
+            System.out.println("Sinh Viên có MSSV: " + MSSV + " chưa có điểm thi");
+        else
+        {
+            listSV_MH.forEach((item) -> { System.out.println(item);});
+        }
     }
 }

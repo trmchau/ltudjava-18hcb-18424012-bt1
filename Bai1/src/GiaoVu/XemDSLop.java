@@ -6,12 +6,10 @@
 package GiaoVu;
 
 import static GiaoVu_SinhVien.XuLyData.FormatDSLop;
-import static GiaoVu_SinhVien.XuLyData.ReadFileCSV;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -57,6 +55,8 @@ public class XemDSLop {
                     path = listFile.get(chon);
                     break;
                 }
+                else
+                    System.out.print("Nhập số có trong Danh sách: ");
             }
             FormatDSLop(path);
         }
