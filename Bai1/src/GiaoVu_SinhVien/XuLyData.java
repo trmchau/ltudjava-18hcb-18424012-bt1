@@ -107,7 +107,7 @@ public class XuLyData {
         if(file == null)
             return;
         File f = new File(file);
-        System.out.println("Chức năng HashMapToFile");
+//        System.out.println("Chức năng HashMapToFile");
         try(PrintWriter pw = new PrintWriter(new FileWriter(file))) {
             pw.println(title);
             for(String key: map.keySet()){

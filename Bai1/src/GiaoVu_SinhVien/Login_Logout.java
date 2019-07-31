@@ -214,7 +214,7 @@ public class Login_Logout {
 //    Chức năng 1
     public static void XemDiem(){
         System.out.println("Điểm Thi Của SV: " + user);
-        SinhVienXemBangDiem();
+        SinhVienXemBangDiem(user);
     }
 //    Phần GiaoVu
 //    Chức năng 1

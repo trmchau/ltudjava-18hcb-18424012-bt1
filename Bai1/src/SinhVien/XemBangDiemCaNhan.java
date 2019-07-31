@@ -6,12 +6,17 @@
 //Chỉ được xem điểm của chính mình
 package SinhVien;
 
+import static GiaoVu_SinhVien.XuLyData.ReadFileCSV;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 /**
@@ -19,45 +24,38 @@ import java.util.TreeMap;
  * @author Win10
  */
 public class XemBangDiemCaNhan {
-    public static void SinhVienXemBangDiem(){
-        String path = "F:\\HK\\III\\Standard\\My Homework\\Java\\ltudjava-18hcb-18424012-bt1\\Data\\Lop\\User_pass.csv";
-        Map<String, String> map = ReadFileCSV(path);
-        map.keySet().forEach((key) -> {
-                System.out.println(key + "\t" + map.get(key));
-        });  
-    }
-    public static Map<String, String> ReadFileCSV(String file){
-        try {
-            File f = new File(file);
-            FileReader fr = new FileReader(f);
-//            String code = fr.getEncoding();
-            Map<String, String> map;
-            try (BufferedReader br = new BufferedReader(fr)) {
-                String line;
-                //Lấy ra dòng đầu tiên trong file làm tiêu đề cột
-                String title = br.readLine();
-                System.out.println(title);
-                HashMap<String, String> list = new HashMap<>();
-                while((line = br.readLine())!= null){
-                    String []arrItem = line.split(",");
-                    StringBuilder value = new StringBuilder("");
-                    for(int i = 2; i < arrItem.length; i++){
-                        value.append(arrItem[i]);
-                        
-                    }
-//                    System.out.print(arrItem[1]);
-//                    System.out.print(value);
-                    list.put(arrItem[1], value.toString());
-//                    System.out.println();
-                    
-                }   map = new TreeMap<>(list);
-            }
-            return map;
-        }catch (IOException e) {
-            
-            System.out.println(e);
-        }
+    public static void SinhVienXemBangDiem(String MSSV){
+
+        HashMap <String, String> mapDiemSV = new HashMap<>();
         
-        return null;
-    }
+        Path des = Paths.get(System.getProperty("user.dir"));
+        String file = des.getParent().toString() + "\\Data\\Diem\\";
+        File dir = new File(file);
+        File[] files = dir.listFiles();
+        for(File f: files){
+//            Lấy các file kết thúc với phần mở rộng .csv
+            if(f.toString().endsWith(".csv")){
+                Map<String, String> map = ReadFileCSV(f.toString());
+                if(map.containsKey(MSSV)){              
+                    mapDiemSV.put(f.toString(), map.get(MSSV));
+                }   
+            }
+        }
+        if(mapDiemSV.isEmpty())
+            System.out.println("Sinh Viên có MSSV: " + MSSV + " chưa có điểm thi");
+        else
+        {
+            int stt = 0;
+            // key is Môn Học, value is Số Điểm
+            for(String key: mapDiemSV.keySet()){
+                String []MH = key.split("\\.");
+                String monhoc = MH[0].substring(MH[0].length() - 6);
+                for(String item: MH){
+                    System.out.println(item);
+
+                }
+                System.out.println(monhoc + "-->" + mapDiemSV.get(key));
+            }
+        }
+    }    
 }
