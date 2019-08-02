@@ -5,13 +5,13 @@
  */
 package GiaoVu_SinhVien;
 
-import static GiaoVu.Add_SV.GiaoVuAddSv;
-import static GiaoVu.DKHP.copyFileDKHP;
+import static GiaoVu.DKHP.DangKyHocPhan;
 import static GiaoVu.ImportBangDiem.copyFileBangDiem;
 import static GiaoVu.Import_DSLop.copyFileDSLop;
 import static GiaoVu.Import_TKB.copyFileTKB;
 import static GiaoVu.SuaDiem.GiaoVuSuaDiem;
 import static GiaoVu.XemBangDiem.GiaoVuXemBangDiem;
+import static GiaoVu.XemDSLop.Chon_Lop;
 import static GiaoVu.XemDSLop.GiaoVuXemDsLop;
 import static GiaoVu.XemTKB.GiaoVuXemTKB;
 import static GiaoVu_SinhVien.ChangePassword.NewPassword;
@@ -226,7 +226,7 @@ public class Login_Logout {
 //    Chức năng 2
     public static void ThemSV(){
         System.out.println("Chức năng Thêm Sinh Viên");
-        GiaoVuAddSv();
+//        GiaoVuAddSv();
         System.out.println("OK");
     }
 //    Chức năng 3
@@ -238,7 +238,13 @@ public class Login_Logout {
 //    Chức năng 4
     public static void XemDSSVHocPhan(){
         System.out.println("Chức năng Xem Danh Sách Sinh Viên Học Môn Học");
-        copyFileDKHP();
+        Scanner sc = new Scanner(System.in);
+//        void DangKyHocPhan(String mssv, String lop, String monhoc)
+        System.out.print("Nhập mssv: ");
+        String mssv = sc.nextLine();
+        String lop = Chon_Lop();
+        
+        DangKyHocPhan(mssv, lop);
         System.out.println("OK");
     }
 //    Chức năng 5

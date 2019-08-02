@@ -6,32 +6,66 @@
 // Đăng ký học phần _ Lưu sanh sách riêng cho từng môn học
 package GiaoVu;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static GiaoVu_SinhVien.Login_Logout.Menu;
+import static GiaoVu_SinhVien.XuLyData.ReadFileCSV;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  *
  * @author Win10
  */
 public class DKHP {
-    public static void copyFileDKHP(){
-        Path source = Paths.get("F:\\HK\\III\\Standard\\My Homework\\Java\\Bài Tập\\Data\\18HCB–CTT001.csv");
-//        System.out.println(source);
-        Path f = source.getFileName();
-//        System.out.println(f);
-        Path des = Paths.get(System.getProperty("user.dir"));
-//        System.out.println(des);
-        des = Paths.get(des.getParent() + "/Data/HocPhan/" + f);
-//        System.out.println(des);
-        try {
-            Files.copy(source, des, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ex) {
-            Logger.getLogger(ImportBangDiem.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static void DangKyHocPhan(String mssv, String lop){
+        Map<String, String> map = ReadFileCSV(lop);
+        String title = map.get("title");
+//        map.remove("title");
+        Scanner sc = new Scanner(System.in);
+        int chon;
+        if(map.containsKey(mssv)){
+            System.out.printf("1. Cho phép %s không tham gia lớp: %s \n", mssv, lop);
+            System.out.println("2. Trở về Home");
+            while(true){
+                try {
+                System.out.println("Nhập lựa chọn: ");
+                chon = sc.nextInt();
+                    switch(chon){
+                        case 1: 
+                            System.out.println(mssv + " Đã xin nghỉ thành công");
+                            break;
+                        case 2:
+                            Menu();
+                            break;
+                        default:
+                            break;
+                    }
+                }catch (Exception e) {
+                    System.out.println("Bạn nhập không phải số --> " + e);
+                }
+            }
+        }else{
+            System.out.printf("1. Cho phép %s nhập học lớp: %s \n", mssv, lop);
+            System.out.println("2. Trở về Home");
+            while(true){
+                try {
+                System.out.print("Nhập lựa chọn: ");
+                chon = sc.nextInt();
+                    switch(chon){
+                        case 1: 
+                            System.out.println(mssv + " xin cải thiện thành công");
+                            break;
+                        case 2:
+                            Menu();
+                            break;
+                        default:
+                            break;
+                    }
+                }catch (Exception e) {
+                    System.out.println("Bạn nhập không phải số --> " + e);
+                    break;
+                }
+            }
+        }  
+        
     }
 }

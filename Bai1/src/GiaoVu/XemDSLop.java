@@ -17,7 +17,8 @@ import java.util.Scanner;
  * @author Win10
  */
 public class XemDSLop {
-    public static void GiaoVuXemDsLop(){
+    static String path = null;
+    public static String Chon_Lop(){
         Path des = Paths.get(System.getProperty("user.dir"));
 //        System.out.println(des);
         des = Paths.get(des.getParent() + "/Data/Lop/");
@@ -38,7 +39,7 @@ public class XemDSLop {
             }
         }
 //        Nếu trong thư mục Lớp tồn tại file thì mới xét
-        String path = null;
+        
         if(listFile.size() > 0){
             System.out.print("Chọn số STT của tên Lớp cần xem: ");
             int chon;
@@ -56,10 +57,13 @@ public class XemDSLop {
                     break;
                 }
                 else
-                    System.out.print("Nhập số có trong Danh sách: ");
+                    System.out.print("Nhập lựa chọn: ");
             }
-            FormatDSLop(path);
+            
         }
-        
+        return path;
+    }
+    public static void GiaoVuXemDsLop(){
+        FormatDSLop(path);
     }
 }
