@@ -13,8 +13,6 @@ import static GiaoVu_SinhVien.XuLyData.ReadFileCSV;
 import static GiaoVu_SinhVien.XuLyData.SelectFile_DanhSach;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +21,7 @@ import java.util.Map;
  */
 public class XemBangDiem {
     public static void GiaoVuXemBangDiem(){
+        int dau = 0;
         Path des = Paths.get(System.getProperty("user.dir"));
 //        System.out.println(des);
         des = Paths.get(des.getParent() + "/Data/Diem/");
@@ -35,10 +34,17 @@ public class XemBangDiem {
         String []arrItem = title.split(",");
         System.out.printf("%4s %-10s %-15s %8s %8s %8s %8s",arrItem[0], arrItem[1],arrItem[2],arrItem[3],arrItem[4],arrItem[5],arrItem[6]);
         System.out.println();
-        map.keySet().forEach((key) -> {
+        for(String key: map.keySet()) {
             String []valItem = map.get(key).split(",");
 //            System.out.println(key + "\t" + map.get(key));
             System.out.printf("%-4s %-10s %-20s %-8s %-8s %-8s %-8s \n",valItem[0], valItem[1],valItem[2],valItem[3],valItem[4],valItem[5],valItem[6]);
-        }); 
+            try {
+                float diem = Float.parseFloat(valItem[6]);
+                if(diem >= 5)
+                    dau++;
+            } catch (NumberFormatException e) {
+            }
+        }
+        System.out.printf("Thống kê: %d Đậu, %d Rớt \n", dau, map.size() - dau);
     }
 }

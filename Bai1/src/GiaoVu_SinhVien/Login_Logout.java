@@ -5,6 +5,7 @@
  */
 package GiaoVu_SinhVien;
 
+import static GiaoVu.Add_SV.GiaoVuAddSv;
 import static GiaoVu.DKHP.DangKyHocPhan;
 import static GiaoVu.ImportBangDiem.copyFileBangDiem;
 import static GiaoVu.Import_DSLop.copyFileDSLop;
@@ -226,7 +227,7 @@ public class Login_Logout {
 //    Chức năng 2
     public static void ThemSV(){
         System.out.println("Chức năng Thêm Sinh Viên");
-//        GiaoVuAddSv();
+        GiaoVuAddSv();
         System.out.println("OK");
     }
 //    Chức năng 3
@@ -272,8 +273,20 @@ public class Login_Logout {
 //    Chức năng 9
     public static void SuaDiemThi(){
         System.out.println("Chức năng Sửa Điểm Thi");
-        GiaoVuSuaDiem();
-        System.out.println(user + " Đã Hoàn Thành Chức Năng Sửa Điểm");
+        System.out.print("Nhập MSSV cần sửa Điểm: ");
+        Scanner sc = new Scanner(System.in);
+        String ktra;
+        String mssv = sc.nextLine();
+        while(true){
+            GiaoVuSuaDiem(mssv);
+            System.out.print("Tiếp tục sửa điểm cho SV không? Y/N: ");
+            ktra = sc.next();
+            if(!("Y".equalsIgnoreCase(ktra.trim()))){
+                System.out.println(user + " Đã Hoàn Thành Chức Năng Sửa Điểm");
+                Menu();    
+            }
+                
+        }
     }
  
 }

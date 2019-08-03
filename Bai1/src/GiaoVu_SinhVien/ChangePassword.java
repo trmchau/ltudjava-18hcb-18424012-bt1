@@ -21,6 +21,10 @@ public class ChangePassword {
         System.out.print("New Password: ");
         Scanner sc = new Scanner(System.in);
         String newPass = sc.nextLine();
+        while(newPass.trim().equals("")){
+            System.out.print("Không để trống --> New Pass: ");
+            newPass = sc.nextLine();
+        }
         Path des = Paths.get(System.getProperty("user.dir"));
         String file = des.getParent().toString() + "\\Data\\User_pass.csv";
         Map<String, String> map = ReadFileCSV(file);

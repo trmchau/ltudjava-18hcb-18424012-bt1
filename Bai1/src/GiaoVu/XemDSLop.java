@@ -41,7 +41,7 @@ public class XemDSLop {
 //        Nếu trong thư mục Lớp tồn tại file thì mới xét
         
         if(listFile.size() > 0){
-            System.out.print("Chọn số STT của tên Lớp cần xem: ");
+            System.out.print("Nhập lựa chọn: ");
             int chon;
             while(true){
                 Scanner sc = new Scanner(System.in);
@@ -64,6 +64,7 @@ public class XemDSLop {
         return path;
     }
     public static void GiaoVuXemDsLop(){
+        String path = Chon_Lop();
         FormatDSLop(path);
     }
 }

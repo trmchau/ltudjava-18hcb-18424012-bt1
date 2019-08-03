@@ -22,9 +22,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.function.Consumer;
@@ -47,7 +49,7 @@ public class XuLyData {
         for(String key: map.keySet())
         {
             String [] valIem = map.get(key).split(",");
-            System.out.printf("%-4s %-10s %-16s %8s %-8s \n",valIem[0], valIem[1],valIem[2],valIem[3],valIem[4]);
+            System.out.printf("%-4s %-10s %-16s %-8s %-8s \n",valIem[0], valIem[1],valIem[2],valIem[3],valIem[4]);
         }
     }
     public static Map<String, String> ReadFileCSV(String file){
@@ -56,7 +58,7 @@ public class XuLyData {
         
 //        Scanner in = new Scanner(System.in);
 //        String file = "../Data/" + in.nextLine();
-        System.out.println("Xem file: " + file);
+//        System.out.println("Xem file: " + file);
         File f = new File(file);
         
         //Lấy đường dẫn thư mục gốc Java Project
@@ -75,19 +77,25 @@ public class XuLyData {
                 String title = br.readLine();
 //                System.out.println(title);
                 map.put("title", title);
-                
+                String []arrCot = title.split(",");
+                int soluong_cot = arrCot.length;
                
                 
                 while((line = br.readLine())!= null){
-
 //                    String Str = new String(line.getBytes(), code);
 //                    String []arrItem = Str.split(",");
-                    String []arrItem = line.split(",");
-                    //Lấy MSSV làm key
-                    String key = arrItem[1];
+                    
 //                    Systegiaom.out.println(list.get(1));
 //                    System.out.println(list);
-                    map.put(key, line);
+                    if(!line.equals("")){
+                        String []arrItem = line.split(",");
+                        
+                        //Lấy MSSV làm key
+                        String key = arrItem[1];
+                        if(arrItem.length == soluong_cot)
+                            map.put(key, line);
+                    }
+                        
                 }
                 br.close();
 //                for(Map.Entry<String, List<String>> entry: map.entrySet())
@@ -107,15 +115,61 @@ public class XuLyData {
         TreeMap<String, String> tree = new TreeMap<>(map);
         return tree;
     }
-    public static void HashMapToFile(Map<String, String> map, String title, String file){
+    public static void FormatFile(String file){
+        Map<String, String> map = ReadFileCSV(file);
+        String title = map.get("title");
+        map.remove("title");
+        
+        Map<String, String> mapSorted = new TreeMap<>(map);
+
+        int stt = 0;
+        for(String key: mapSorted.keySet()){
+            if(mapSorted.get(key).trim() == ""){
+                mapSorted.remove(key);
+                continue;
+            }
+            stt++;
+            String []arrData =  mapSorted.get(key).split(",", 2);
+            arrData[0] = String.valueOf(stt);
+            String data = arrData[0] + "," + arrData[1];
+            mapSorted.replace(key, data);
+        }
         if(file == null)
             return;
         File f = new File(file);
 //        System.out.println("Chức năng HashMapToFile");
         try(PrintWriter pw = new PrintWriter(new FileWriter(file))) {
             pw.println(title);
-            for(String key: map.keySet()){
-                pw.println(map.get(key));
+            for(String key: mapSorted.keySet()){
+                pw.println(mapSorted.get(key));
+            }  
+        } catch (Exception e) {
+            System.out.println("Không cập nhật được dữ liệu ==> Lỗi");
+            System.exit(0);
+        }
+    }
+    public static void HashMapToFile(Map<String, String> map, String title, String file){
+        Map<String, String> mapSorted = new TreeMap<>(map);
+        int stt = 0;
+        for(String key: mapSorted.keySet()){
+            if(mapSorted.get(key) == ""){
+                mapSorted.remove(key);
+                continue;
+            }
+            stt++;
+            String []arrData =  mapSorted.get(key).split(",", 2);
+            arrData[0] = String.valueOf(stt);
+            String data = arrData[0] + "," + arrData[1];
+            mapSorted.replace(key, data);
+        }
+        if(file == null)
+            return;
+        File f = new File(file);
+//        System.out.println("Chức năng HashMapToFile");
+        try(PrintWriter pw = new PrintWriter(new FileWriter(file))) {
+            pw.println(title);
+            for(String key: mapSorted.keySet()){
+                pw.println(mapSorted.get(key));
             }  
         } catch (Exception e) {
             System.out.println("Không cập nhật được dữ liệu ==> Lỗi");
