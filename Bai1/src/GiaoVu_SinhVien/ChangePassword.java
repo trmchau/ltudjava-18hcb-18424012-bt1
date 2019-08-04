@@ -26,11 +26,11 @@ public class ChangePassword {
             newPass = sc.nextLine();
         }
         Path des = Paths.get(System.getProperty("user.dir"));
-        String file = des.getParent().toString() + "\\Data\\User_pass.csv";
+        String file = des + "/User_pass.csv";
         Map<String, String> map = ReadFileCSV(file);
         String title  = map.get("title");
         map.remove("title");
-        System.out.println(title);
+//        System.out.println(title);
         String data = map.get(user);
         String []arrItem = data.split(",");
         arrItem[2] = newPass;

@@ -6,6 +6,7 @@
 //Chỉ được xem điểm của chính mình
 package SinhVien;
 
+import static GiaoVu_SinhVien.Login_Logout.Menu;
 import static GiaoVu_SinhVien.XuLyData.ReadFileCSV;
 import java.io.File;
 import java.nio.file.Path;
@@ -28,6 +29,10 @@ public class XemBangDiemCaNhan {
         Path des = Paths.get(System.getProperty("user.dir"));
         String file = des.getParent().toString() + "\\Data\\Diem\\";
         File dir = new File(file);
+        if(!dir.exists() || dir.list().length == 0){
+            System.out.println("Chưa có bảng điểm");
+            Menu();
+        }
         File[] files = dir.listFiles();
         int stt = 0;
         for(File f: files){

@@ -33,7 +33,9 @@ public class SuaDiem {
         String title = "";
         System.out.print("Nhập Điểm theo định dạng Giữa kỳ, Cuối kỳ, Điểm khác, Điểm tổng --> VD: 9,9,9,9 \n");
         System.out.print("Nhập Điểm: ");
-        newDiem = sc.nextLine();
+        newDiem = sc.nextLine().replaceAll("\\s+", "");
+        
+//        System.out.println(newDiem);
         String []arrDiem = newDiem.split(",");
         if(arrDiem.length == 4){
             while(true){

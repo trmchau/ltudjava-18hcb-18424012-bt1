@@ -5,12 +5,12 @@
  */
 package GiaoVu;
 
+import static GiaoVu_SinhVien.Login_Logout.Menu;
 import static GiaoVu_SinhVien.XuLyData.ReadFileCSV;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -23,8 +23,14 @@ public class XemTKB {
         Path des = Paths.get(System.getProperty("user.dir"));
 //        System.out.println(des);
         des = Paths.get(des.getParent() + "/Data/TKB/");
+        
 //        System.out.println(des);
         File dir = new File(des.toString());
+        
+        if(!dir.exists() || dir.list().length == 0){
+            System.out.println("Chưa có bảng điểm");
+            Menu();
+        }
         File[] files = dir.listFiles();
         int stt = 0;
         ArrayList<String> listFile = new ArrayList<>();

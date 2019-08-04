@@ -7,6 +7,7 @@
 package GiaoVu;
 
 import static GiaoVu_SinhVien.XuLyData.XuLyPathImportFile;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,6 +36,10 @@ public class Import_DSLop {
 //        System.out.println(des);
         des = Paths.get(des.getParent() + "/Data/Lop/" + f);
 //        System.out.println(des);
+        File createdir = new File(des.getParent().toString());
+        
+        if(!createdir.exists())
+            createdir.mkdirs();
         try {
             Files.copy(source, des, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {

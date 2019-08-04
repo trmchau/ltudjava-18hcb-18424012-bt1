@@ -39,6 +39,10 @@ public class Import_TKB {
         des = Paths.get(des.getParent() + "/Data/TKB/" + f);
         
 //        System.out.println(des);
+        File createdir = new File(des.getParent().toString());
+        
+        if(!createdir.exists())
+            createdir.mkdirs();
         try {
             Files.copy(source, des, StandardCopyOption.REPLACE_EXISTING);
 //            Tách phần mở rộng

@@ -10,26 +10,16 @@ import static GiaoVu_SinhVien.Login_Logout.Menu;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,6 +30,7 @@ import java.util.logging.Logger;
  */
 public class XuLyData {
     public static void FormatDSLop(String file){
+//        FormatFile(file);
         Map<String, String> map = (Map<String, String>)ReadFileCSV(file);
         String title = map.get("title");
         map.remove("title");

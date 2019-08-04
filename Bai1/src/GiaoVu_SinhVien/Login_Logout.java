@@ -12,7 +12,6 @@ import static GiaoVu.Import_DSLop.copyFileDSLop;
 import static GiaoVu.Import_TKB.copyFileTKB;
 import static GiaoVu.SuaDiem.GiaoVuSuaDiem;
 import static GiaoVu.XemBangDiem.GiaoVuXemBangDiem;
-import static GiaoVu.XemDSLop.Chon_Lop;
 import static GiaoVu.XemDSLop.GiaoVuXemDsLop;
 import static GiaoVu.XemTKB.GiaoVuXemTKB;
 import static GiaoVu_SinhVien.ChangePassword.NewPassword;
@@ -46,7 +45,7 @@ public class Login_Logout {
     }
     public static boolean KtraUser(){
         Path des = Paths.get(System.getProperty("user.dir"));
-        String file = des.getParent().toString() + "\\Data\\User_pass.csv";
+        String file = des + "\\User_pass.csv";
 //        String file = "F:\\HK\\III\\Standard\\My Homework\\Java\\ltudjava-18hcb-18424012-bt1\\Data\\User_pass.csv";
         Map<String, String> map = ReadFileCSV(file);
         String title = map.get("title");
@@ -208,71 +207,66 @@ public class Login_Logout {
         System.out.println("Login_Logout");
     }
     public static void DoiPassword(){
+        System.out.println("********* Chức năng đổi Password");
         System.out.println(user + ": Đổi Pass word");
         NewPassword(user);
     }
 //    Phần Sinh Viên
 //    Chức năng 1
     public static void XemDiem(){
-        System.out.println("Điểm Thi Của SV: " + user);
+        System.out.println("********* Xem Điểm Thi");
         SinhVienXemBangDiem(user);
     }
 //    Phần GiaoVu
 //    Chức năng 1
     public static void ImportDSLop(){
-        System.out.println("Chức năng Import DS Lớp");
+        System.out.println("********* Chức năng Import DS Lớp");
         copyFileDSLop();
         System.out.println("OK");
     }
 //    Chức năng 2
     public static void ThemSV(){
-        System.out.println("Chức năng Thêm Sinh Viên");
+        System.out.println("********* Chức năng Thêm Sinh Viên");
         GiaoVuAddSv();
         System.out.println("OK");
     }
 //    Chức năng 3
     public static void ImportTKB(){
-        System.out.println("Chức năng Import Thời Khóa Biểu");
+        System.out.println("********* Chức năng Import Thời Khóa Biểu");
         copyFileTKB();
         System.out.println("OK");
     }
 //    Chức năng 4
     public static void XemDSSVHocPhan(){
-        System.out.println("Chức năng Xem Danh Sách Sinh Viên Học Môn Học");
-        Scanner sc = new Scanner(System.in);
-//        void DangKyHocPhan(String mssv, String lop, String monhoc)
-        System.out.print("Nhập mssv: ");
-        String mssv = sc.nextLine();
-        String lop = Chon_Lop();
-        
-        DangKyHocPhan(mssv, lop);
+        System.out.println("********* Chức năng Thêm Xóa Danh Sách Sinh Viên Học Môn Học");
+        DangKyHocPhan();
         System.out.println("OK");
     }
 //    Chức năng 5
     public static void XemDSLop(){
-        System.out.println("Chức năng Xem Danh Sách Lớp");
+        System.out.println("********* Chức năng Xem Danh Sách Lớp");
         GiaoVuXemDsLop();
     }
 //    Chức năng 6
     public static void XemLaiTKB(){
-        System.out.println("Chức năng Xem Thời Khóa Biểu");
+        System.out.println("********* Chức năng Xem Thời Khóa Biểu");
         GiaoVuXemTKB();
     }
 //    Chức năng 7
     public static void ImportBangDiem(){
-        System.out.println("Chức năng Import Bảng Điểm");
+        System.out.println("********* Chức năng Import Bảng Điểm");
         copyFileBangDiem();
         System.out.println(user + ": Đã Hoàn Thành Import Bảng Điểm");
     }
 //    Chức năng 8
     public static void XemLaiBangDiem(){
-        System.out.println("Chức năng Xem Bảng Điểm");
+        System.out.println("********* Chức năng Xem Bảng Điểm");
         GiaoVuXemBangDiem();
     }
 
 //    Chức năng 9
     public static void SuaDiemThi(){
-        System.out.println("Chức năng Sửa Điểm Thi");
+        System.out.println("********* Chức năng Sửa Điểm Thi");
         System.out.print("Nhập MSSV cần sửa Điểm: ");
         Scanner sc = new Scanner(System.in);
         String ktra;

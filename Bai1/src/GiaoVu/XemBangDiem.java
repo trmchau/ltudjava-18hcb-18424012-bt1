@@ -9,8 +9,10 @@
 //Cho biết phần trăm đậu rớt
 package GiaoVu;
 
+import static GiaoVu_SinhVien.Login_Logout.Menu;
 import static GiaoVu_SinhVien.XuLyData.ReadFileCSV;
 import static GiaoVu_SinhVien.XuLyData.SelectFile_DanhSach;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -25,9 +27,15 @@ public class XemBangDiem {
         Path des = Paths.get(System.getProperty("user.dir"));
 //        System.out.println(des);
         des = Paths.get(des.getParent() + "/Data/Diem/");
+        File ktra_file = new File(des.toString());
+        if(!ktra_file.exists() || ktra_file.list().length == 0){
+            System.out.println("Chưa có bảng điểm");
+            Menu();
+        }
 //        System.out.println(des);
         String path = SelectFile_DanhSach(des);
         Map<String, String> map = (Map<String, String>)ReadFileCSV(path);
+       
 //        STT ,MSSV ,Họ tên ,Điểm GK,Điểm CK,Điểm khác,Điểm tổng
         String title = map.get("title");
         map.remove("title");
